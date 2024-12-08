@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="h-screen w-full flex bg-white">
+    <!-- Left Section (Your existing left section with 3D model) -->
+    <div class="bg-gradient-to-r from-yellow-100 via-orange-300 to-red-500">
+        <div class="flex flex-col h-full w-144 relative z-10">
+            <div class="flex flex-row h-24 justify-start items-center">
+                <img class="w-16 h-16 ml-11" src="{% static 'images/khas-removebg-preview.png' %}">
+                <span class="ml-6 text-black h-11 w-24 text-4xl font-extrabold font-serif">XACBOT</span>
+            </div>
+            <!-- <hr class="w-full bg-gray-400 border-white/10"> -->
+            <div class="relative flex-1 flex ">
+                <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.48/build/spline-viewer.js"></script>
+                <!-- Positioning the spline viewer absolutely with a high z-index -->
+                <spline-viewer url="https://prod.spline.design/CTkdAu9VR9nc7iBU/scene.splinecode" class="w-full h-full absolute top-0 left-0 z-20"></spline-viewer>
+            </div>
+        </div>
+    </div>
+    <div class="w-full flex flex-col items-center justify-end px-10">
+            <div class="absolute top-2 right-10 h-10 w-10">
+                <button id="toggleAccessibility"  class="w-10 h-10"><img src="{% static 'images/eye.png' %}"></button>
+            </div>
+            <div id="main" class="h-144 w-full flex flex-col justify-between mx-16 mb-12">
+                <!-- Scrollable Section -->
+                <div class="overflow-y-scroll scroll-m-0 flex-grow" id="scrollableContainer">
+                    <div id="container" class="flex flex-wrap gap-4 p-4 text-center text-sm font-semibold text-black">
+                        <p class="w-40 p-5 shadow-custom text-center rounded-2xl cursor-pointer hover:bg-red-400 hover:border-redbg-red-400  active:bg-orange-300 transition duration-300 ease-in-out"
+                            hx-post="{% url 'send_message' %}" 
+                            hx-vals='{"message": "Hasbanknii tuhai"}' 
+                            hx-target="#container" 
+                            hx-swap="innerHTML">
+                            Хасбанк
+                        </p>
+                        <p class="w-40 p-2 shadow-custom text-center rounded-2xl cursor-pointer hover:bg-red-400 hover:border-redbg-red-400 active:bg-orange-300 transition duration-300 ease-in-out"
+                            hx-post="{% url 'send_message' %}" 
+                            hx-vals='{"message": "Хэрхэн интернэт нууц үг сэргээх"}' 
+                            hx-target="#container" 
+                            hx-swap="innerHTML">
+                            Интернэт нууц үг сэргээх
+                        </p>
+                        <p class="w-40 p-5 shadow-custom text-center rounded-2xl cursor-pointer hover:bg-red-400 hover:border-redbg-red-400 active:bg-orange-300 transition duration-300 ease-in-out"
+                            hx-post="{% url 'send_message' %}" 
+                            hx-vals='{"message": "Салбарын мэдээлэл"}' 
+                            hx-target="#container" 
+                            hx-swap="innerHTML">
+                            Салбарууд
+                        </p>
+                        <p class="w-40 p-5 shadow-custom text-center rounded-2xl cursor-pointer hover:bg-red-400 hover:border-redbg-red-400 active:bg-orange-300 transition duration-300 ease-in-out"
+                            hx-post="{% url 'send_message' %}" 
+                            hx-vals='{"message": "Кредит карт"}' 
+                            hx-target="#container" 
+                            hx-swap="innerHTML">
+                            Кредит карт
+                        </p>
+                        <p class="w-40 p-5 shadow-custom text-center rounded-2xl cursor-pointer hover:bg-red-400 hover:border-redbg-red-400 active:bg-orange-300 transition duration-300 ease-in-out"
+                            hx-post="{% url 'send_message' %}" 
+                            hx-vals='{"message": "24 цагийн ATM"}' 
+                            hx-target="#container" 
+                            hx-swap="innerHTML">
+                            24 цагийн ATM
+                        </p>
+                    </div>
+                </div>
+                
+                <div id="loadingIndicator" class="hidden flex justify-center items-center h-full">
+                    <div class="text-center">
+                        <svg class="animate-spin h-8 w-8 text-gray-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8v8H4zm2 5.291A7.962 7.962 0 014 12H2a9.956 9.956 0 002.292 6.708l1.414-1.417z"></path>
+                        </svg>
+                        <p class="text-gray-600 mt-2">Асуултыг илгээж байна...</p>
+                    </div>
+                </div>
+                    <!-- Input Form (Server-side Handling) -->
+                <form method="post" action="{% url 'send_message' %}"
+                        class="w-full flex flex-row justify-between bottom-4 bg-gray-50 p-3 rounded-lg shadow-lg"
+                        hx-post="{% url 'send_message' %}" hx-target="#container" hx-swap="innerHTML">
+                    {% csrf_token %}
+                    <div class="flex w-full">
+                        <input type="text" name="message"
+                                class="p-2.5 w-3/4 text-xl text-gray-900 bg-gray-50 rounded-lg border-0 overflow-hidden focus:outline-none resize-none"
+                                placeholder="Та асуух зүйлээ бичнэ үү" required>
+                        <button type="submit"
+                                class="p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 ml-auto">
+                            <svg class="w-5 h-5 rotate-90 rtl:-rotate-90" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                <path
+                                    d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+        
+                <!-- Non-Scrollable Section -->
+                <form method="post" action="{% url 'reset_chat' %}" class="mt-4">
+                    {% csrf_token %}
+                    <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg">Ахин эхлүүлэх</button>
+                </form>
+            </div>
+    </div>
+    
+</div>
+<script>
+     document.addEventListener('DOMContentLoaded', function () {
+        const splineViewer = document.querySelector('spline-viewer');
+        if (splineViewer) {
+            const shadowRoot = splineViewer.shadowRoot;
+            if (shadowRoot) {
+                const style = document.createElement('style');
+                style.textContent = `
+                    #logo {
+                        display: none !important;
+                    }
+                `;
+                shadowRoot.appendChild(style);
+            }
+        }
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileNav = document.getElementById('mobile-nav');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileNav.classList.toggle('hidden');
+        });
+    });
+    const scrollableContainer = document.getElementById('scrollableContainer');
+
+    // Function to auto-scroll to bottom
+    function scrollToBottom() {
+        scrollableContainer.scrollTop = scrollableContainer.scrollHeight;
+    }
+
+    // Observe the container for changes
+    const observer = new MutationObserver(() => {
+        scrollToBottom();
+    });
+
+    // Start observing the container
+    observer.observe(scrollableContainer, { childList: true, subtree: true });
+
+    // Initial scroll to bottom
+    scrollToBottom();
+
+    document.addEventListener("htmx:beforeRequest", function (evt) {
+        const scrollableContainer = document.getElementById("scrollableContainer");
+        const loadingIndicator = document.getElementById("loadingIndicator");
+
+        // Hide the scrollable container and show the loading indicator
+        if (scrollableContainer) scrollableContainer.classList.add("hidden");
+        if (loadingIndicator) loadingIndicator.classList.remove("hidden");
+    });
+
+    document.addEventListener("htmx:afterSwap", function (evt) {
+        const scrollableContainer = document.getElementById("scrollableContainer");
+        const loadingIndicator = document.getElementById("loadingIndicator");
+
+        // Show the scrollable container and hide the loading indicator
+        if (scrollableContainer) scrollableContainer.classList.remove("hidden");
+        if (loadingIndicator) loadingIndicator.classList.add("hidden");
+    });
+    const toggleAccessibility = document.getElementById('toggleAccessibility');
+    const pageContent = document.getElementById('main');
+    const container = document.getElementById('container');
+
+    // Set an initial font size state
+    let fontSizeState = 'base';
+
+    toggleAccessibility.addEventListener('click', () => {
+        // Define font size classes
+        const fontSizeClasses = ['text-sm', 'text-base', 'text-xl', 'text-2xl'];
+
+        // Remove existing font size classes from #main and its children
+        pageContent.classList.remove(...fontSizeClasses);
+        container.querySelectorAll('*').forEach((child) => {
+            child.classList.remove(...fontSizeClasses);
+        });
+
+        // Toggle font size state
+        if (fontSizeState === 'base') {
+            fontSizeState = 'xl';
+            pageContent.classList.add('text-xl');
+            container.querySelectorAll('*').forEach((child) => {
+                child.classList.add('text-xl');
+            });
+        } else if (fontSizeState === 'xl') {
+            fontSizeState = '2xl';
+            pageContent.classList.add('text-2xl');
+            container.querySelectorAll('*').forEach((child) => {
+                child.classList.add('text-2xl');
+            });
+        } else {
+            fontSizeState = 'base';
+            pageContent.classList.add('text-sm');
+            container.querySelectorAll('*').forEach((child) => {
+                child.classList.add('text-sm');
+            });
+        }
+    });
+
+</script>
+
+{% endblock content %}

@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "hasbank"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.4"
+langchain = "^0.3.10"
+langchain-community = "^0.3.10"
+langchain-openai = "^0.2.11"
+langchain-chroma = "^0.1.4"
+chromadb = "^0.5.23"
+scikit-learn = "^1.5.2"
+pandas = "^2.2.3"
+pyarrow = "^18.1.0"
+fastparquet = "^2024.11.0"
+streamlit = "^1.40.2"
+django-rest = "^0.8.7"
+django-htmx = "^1.21.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

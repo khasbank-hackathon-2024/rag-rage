@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev": "npx tailwindcss -i ./core/static/css/input.css -o ./core/static/css/styles.css --minify --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.16"
+  },
+  "dependencies": {
+    "htmx.org": "^2.0.3",
+    "swup": "^4.8.1"
+  }
+}
